@@ -30,31 +30,41 @@ const mockChild: Child = {
   coins: 79
 };
 
-const mockRoutines: Routine[] = [
-  {
-    id: "1",
-    description: "Acordar, Tomar café da manhã",
-    time: "08:00",
-    duration: 30,
-    rewardCoins: 5,
-    completed: false
-  },
-  {
-    id: "2", 
-    description: "Fazer tarefa e leitura",
-    time: "09:30",
-    duration: 45,
-    rewardCoins: 10,
-    completed: true
-  },
-  {
-    id: "3",
-    description: "Ajudar a mãe em algo que ela precise, arrumar a cama e guardar a louça",
-    time: "10:15",
-    duration: 30,
-    rewardCoins: 8,
-    completed: true
-  }
+const mockRoutines: (Routine & { weekDay: number })[] = [
+  // Domingo (0)
+  { id: "dom1", description: "Acordar e tomar café da manhã", time: "09:00", duration: 45, rewardCoins: 5, completed: false, weekDay: 0 },
+  { id: "dom2", description: "Ler um livro por 30 minutos", time: "14:30", duration: 30, rewardCoins: 8, completed: false, weekDay: 0 },
+  { id: "dom3", description: "Organizar o quarto", time: "16:00", duration: 25, rewardCoins: 6, completed: false, weekDay: 0 },
+  
+  // Segunda-feira (1)
+  { id: "seg1", description: "Acordar e se preparar para escola", time: "07:00", duration: 30, rewardCoins: 5, completed: false, weekDay: 1 },
+  { id: "seg2", description: "Fazer lição de casa", time: "15:30", duration: 60, rewardCoins: 12, completed: false, weekDay: 1 },
+  { id: "seg3", description: "Ajudar na cozinha", time: "18:00", duration: 20, rewardCoins: 7, completed: false, weekDay: 1 },
+  
+  // Terça-feira (2)
+  { id: "ter1", description: "Tomar café da manhã", time: "07:30", duration: 20, rewardCoins: 3, completed: false, weekDay: 2 },
+  { id: "ter2", description: "Estudar matemática", time: "16:15", duration: 45, rewardCoins: 10, completed: false, weekDay: 2 },
+  { id: "ter3", description: "Guardar os brinquedos", time: "19:30", duration: 15, rewardCoins: 5, completed: false, weekDay: 2 },
+  
+  // Quarta-feira (3)
+  { id: "qua1", description: "Acordar, Tomar café da manhã", time: "08:00", duration: 30, rewardCoins: 5, completed: false, weekDay: 3 },
+  { id: "qua2", description: "Fazer tarefa e leitura", time: "09:30", duration: 45, rewardCoins: 10, completed: false, weekDay: 3 },
+  { id: "qua3", description: "Ajudar a mãe em algo que ela precise, arrumar a cama e guardar a louça", time: "10:15", duration: 30, rewardCoins: 8, completed: false, weekDay: 3 },
+  
+  // Quinta-feira (4)
+  { id: "qui1", description: "Escovar os dentes e tomar banho", time: "07:15", duration: 25, rewardCoins: 4, completed: false, weekDay: 4 },
+  { id: "qui2", description: "Praticar instrumento musical", time: "17:00", duration: 40, rewardCoins: 9, completed: false, weekDay: 4 },
+  { id: "qui3", description: "Organizar a mochila escolar", time: "20:00", duration: 10, rewardCoins: 3, completed: false, weekDay: 4 },
+  
+  // Sexta-feira (5)
+  { id: "sex1", description: "Café da manhã nutritivo", time: "08:15", duration: 25, rewardCoins: 4, completed: false, weekDay: 5 },
+  { id: "sex2", description: "Revisar matérias da semana", time: "15:00", duration: 50, rewardCoins: 11, completed: false, weekDay: 5 },
+  { id: "sex3", description: "Arrumar o guarda-roupa", time: "18:45", duration: 35, rewardCoins: 8, completed: false, weekDay: 5 },
+  
+  // Sábado (6)
+  { id: "sab1", description: "Dormir um pouco mais", time: "09:30", duration: 30, rewardCoins: 3, completed: false, weekDay: 6 },
+  { id: "sab2", description: "Atividade física ou esporte", time: "14:00", duration: 60, rewardCoins: 15, completed: false, weekDay: 6 },
+  { id: "sab3", description: "Tempo em família", time: "17:30", duration: 45, rewardCoins: 10, completed: false, weekDay: 6 }
 ];
 
 interface ChildRoutineViewProps {
@@ -65,6 +75,7 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
   const [routines, setRoutines] = useState(mockRoutines);
   const [coins, setCoins] = useState(mockChild.coins);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [selectedDay, setSelectedDay] = useState<number | null>(null);
 
   const handleRoutineComplete = (routineId: string) => {
     setRoutines(prev => prev.map(routine => {
@@ -92,6 +103,12 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
   };
 
   const dayInfo = getDayInfo();
+  const currentWeekDay = selectedDay !== null ? selectedDay : new Date().getDay();
+  const filteredRoutines = routines.filter(routine => routine.weekDay === currentWeekDay);
+
+  const handleDaySelect = (dayIndex: number) => {
+    setSelectedDay(dayIndex);
+  };
 
   return (
     <CosmicBackground>
@@ -161,8 +178,11 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
             {['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'].map((day, index) => (
               <Badge 
                 key={day}
-                variant={day === dayInfo.weekDay ? "default" : "secondary"}
-                className={`px-2 py-1 text-xs ${day === dayInfo.weekDay ? 'bg-warning text-warning-foreground' : ''}`}
+                variant={index === currentWeekDay ? "default" : "secondary"}
+                className={`px-2 py-1 text-xs cursor-pointer transition-colors hover:bg-accent/80 ${
+                  index === currentWeekDay ? 'bg-warning text-warning-foreground' : ''
+                }`}
+                onClick={() => handleDaySelect(index)}
               >
                 {day}
               </Badge>
@@ -172,7 +192,7 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
 
         {/* Routines List */}
         <div className="space-y-3 sm:space-y-4 max-w-4xl mx-auto">
-          {routines.map((routine) => (
+          {filteredRoutines.map((routine) => (
             <Card key={routine.id} className={`p-4 sm:p-6 bg-card/50 backdrop-blur-sm border transition-cosmic ${
               routine.completed ? 'border-success/40 bg-success/5' : 'border-accent/20 hover:border-accent/40'
             }`}>
