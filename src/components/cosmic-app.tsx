@@ -106,27 +106,30 @@ export const CosmicApp = () => {
 
   return (
     <div className="cosmic-app">
-      {/* Navigation buttons for demo purposes */}
-      <div className="fixed top-4 right-4 z-50 flex gap-2">
-        <button
-          onClick={() => setCurrentView("child-routine")}
-          className="bg-primary text-primary-foreground px-3 py-2 rounded text-sm"
-        >
-          Criança
-        </button>
-        <button
-          onClick={() => setCurrentView("space-store")}
-          className="bg-secondary text-secondary-foreground px-3 py-2 rounded text-sm"
-        >
-          Loja
-        </button>
+      {/* Header with navigation */}
+      <header className="relative z-50 p-4 flex justify-between items-center">
+        <div className="flex gap-2">
+          <button
+            onClick={() => setCurrentView("child-routine")}
+            className="bg-primary text-primary-foreground px-3 py-2 rounded text-sm"
+          >
+            Criança
+          </button>
+          <button
+            onClick={() => setCurrentView("space-store")}
+            className="bg-secondary text-secondary-foreground px-3 py-2 rounded text-sm"
+          >
+            Loja
+          </button>
+        </div>
+        
         <button
           onClick={() => setCurrentView("parent-dashboard")}
           className="bg-accent text-accent-foreground px-3 py-2 rounded text-sm"
         >
           Pais
         </button>
-      </div>
+      </header>
 
       {renderCurrentView()}
     </div>
