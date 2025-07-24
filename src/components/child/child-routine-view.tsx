@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Coins } from "lucide-react";
+import { Coins, ShoppingCart, UserCircle } from "lucide-react";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CosmicIcon } from "@/components/cosmic/cosmic-icon";
 import { Button } from "@/components/ui/button";
@@ -140,13 +140,13 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
               
               {/* Store Button */}
               <Button variant="cosmic" size="sm" className="rounded-xl h-12 sm:h-14 text-xs sm:text-sm" onClick={() => onNavigate?.("space-store")}>
-                <CosmicIcon type="galaxy" size={16} />
+                <ShoppingCart size={16} />
                 <span className="ml-1 sm:ml-2">Loja</span>
               </Button>
               
               {/* Parent Area Button */}
               <Button variant="outline" size="sm" className="rounded-xl h-12 sm:h-14 text-xs sm:text-sm" onClick={() => onNavigate?.("parent-dashboard")}>
-                <CosmicIcon type="planet" size={16} />
+                <UserCircle size={16} />
                 <span className="ml-1 sm:ml-2">Pais</span>
               </Button>
             </div>
