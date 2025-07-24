@@ -110,6 +110,18 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
     setSelectedDay(dayIndex);
   };
 
+  const isTimeNear = (routineTime: string) => {
+    const now = new Date();
+    const currentTime = now.getHours() * 60 + now.getMinutes(); // minutos desde meia-noite
+    
+    const [hours, minutes] = routineTime.split(':').map(Number);
+    const routineMinutes = hours * 60 + minutes;
+    
+    // Considera "próximo" se estiver dentro de 15 minutos antes ou depois
+    const timeDifference = Math.abs(currentTime - routineMinutes);
+    return timeDifference <= 15;
+  };
+
   return (
     <CosmicBackground>
       <div className="container mx-auto p-3 sm:p-4 space-y-4 sm:space-y-6">
@@ -235,7 +247,9 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
                         variant="stellar"
                         size="sm"
                         onClick={() => handleRoutineComplete(routine.id)}
-                        className="rounded-full px-4 sm:px-6 text-xs sm:text-sm"
+                        className={`rounded-full px-4 sm:px-6 text-xs sm:text-sm ${
+                          currentWeekDay === new Date().getDay() && isTimeNear(routine.time) ? 'animate-pulse' : ''
+                        }`}
                       >
                         Completar
                       </Button>
