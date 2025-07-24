@@ -76,15 +76,24 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
   const [coins, setCoins] = useState(mockChild.coins);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
+  const [completingRoutine, setCompletingRoutine] = useState<string | null>(null);
 
   const handleRoutineComplete = (routineId: string) => {
-    setRoutines(prev => prev.map(routine => {
-      if (routine.id === routineId && !routine.completed) {
-        setCoins(prev => prev + routine.rewardCoins);
-        return { ...routine, completed: true };
-      }
-      return routine;
-    }));
+    setCompletingRoutine(routineId);
+    
+    setTimeout(() => {
+      setRoutines(prev => prev.map(routine => {
+        if (routine.id === routineId && !routine.completed) {
+          setCoins(prev => prev + routine.rewardCoins);
+          return { ...routine, completed: true };
+        }
+        return routine;
+      }));
+      
+      setTimeout(() => {
+        setCompletingRoutine(null);
+      }, 500);
+    }, 600);
   };
 
   const getDayInfo = () => {
@@ -194,9 +203,9 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
         {/* Routines List */}
         <div className="space-y-3 sm:space-y-4 max-w-4xl mx-auto">
           {filteredRoutines.map((routine) => (
-            <Card key={routine.id} className={`p-4 sm:p-6 bg-card/50 backdrop-blur-sm border transition-cosmic ${
+            <Card key={routine.id} className={`p-4 sm:p-6 bg-card/50 backdrop-blur-sm border transition-all duration-500 ${
               routine.completed ? 'border-success/40 bg-success/5' : 'border-accent/20 hover:border-accent/40'
-            }`}>
+            } ${completingRoutine === routine.id ? 'animate-pulse scale-105 border-warning/60 bg-warning/10' : ''}`}>
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                 {/* Time */}
                 <div className="text-center sm:text-center min-w-[70px] sm:min-w-[80px] w-full sm:w-auto">
@@ -219,11 +228,13 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
 
                 {/* Bottom section with reward and completion button */}
                 <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-4">
-                  {/* Reward */}
-                  <div className="flex items-center gap-2">
-                    <CosmicIcon type="coin" className="text-yellow-500" size={16} />
-                    <span className="font-bold text-yellow-500 text-sm sm:text-base">{routine.rewardCoins}</span>
-                  </div>
+                   {/* Reward */}
+                   <div className={`flex items-center gap-2 transition-transform duration-300 ${
+                     completingRoutine === routine.id ? 'animate-bounce' : ''
+                   }`}>
+                     <CosmicIcon type="coin" className="text-yellow-500" size={16} />
+                     <span className="font-bold text-yellow-500 text-sm sm:text-base">{routine.rewardCoins}</span>
+                   </div>
 
                   {/* Completion Checkbox */}
                   <div className="flex items-center">
