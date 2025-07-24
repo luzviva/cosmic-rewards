@@ -93,14 +93,14 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
 
   return (
     <CosmicBackground>
-      <div className="container mx-auto p-4 space-y-6">
+      <div className="container mx-auto p-3 sm:p-4 space-y-4 sm:space-y-6">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-warning mb-1">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="w-full sm:w-auto">
+            <h1 className="text-2xl sm:text-3xl font-bold text-warning mb-1">
               Rotina Espacial
             </h1>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-muted-foreground text-xs sm:text-sm">
               {`quinta-feira, ${dayInfo.day} de ${dayInfo.month} de ${dayInfo.year}.`}
             </p>
           </div>
@@ -108,74 +108,76 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
           {/* Menu Button */}
           <Button 
             variant="outline" 
-            size="lg" 
-            className="rounded-xl h-14"
+            size="sm"
+            className="rounded-xl h-12 sm:h-14 w-full sm:w-auto"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <CosmicIcon type="meteor" size={20} />
-            Menu
+            <CosmicIcon type="meteor" size={18} />
+            <span className="ml-2">Menu</span>
           </Button>
           
           {/* Collapsible Menu */}
           {isMenuOpen && (
-            <div className="flex items-center gap-4">
+            <div className="w-full flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-4 sm:mt-0">
               {/* Child Profile */}
-              <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm rounded-2xl p-3 border border-accent/20 h-14">
-                <Avatar className="h-8 w-8 border-2 border-primary">
-                  <AvatarFallback className="text-lg bg-gradient-stellar">
+              <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm rounded-2xl p-3 border border-accent/20 h-12 sm:h-14">
+                <Avatar className="h-6 w-6 sm:h-8 sm:w-8 border-2 border-primary">
+                  <AvatarFallback className="text-sm sm:text-lg bg-gradient-stellar">
                     {mockChild.avatar}
                   </AvatarFallback>
                 </Avatar>
-                <div className="text-right">
-                  <div className="text-sm font-semibold text-foreground">{mockChild.name}</div>
+                <div className="text-left">
+                  <div className="text-xs sm:text-sm font-semibold text-foreground">{mockChild.name}</div>
                 </div>
               </div>
               
               {/* Coins */}
-              <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-4 py-3 shadow-cosmic h-14">
-                <CosmicIcon type="coin" className="text-orange-600" size={20} />
-                <span className="text-lg font-bold text-black">{coins}</span>
+              <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-cosmic h-12 sm:h-14">
+                <CosmicIcon type="coin" className="text-orange-600" size={18} />
+                <span className="text-base sm:text-lg font-bold text-black">{coins}</span>
               </div>
               
               {/* Store Button */}
-              <Button variant="cosmic" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("space-store")}>
-                <CosmicIcon type="galaxy" size={20} />
-                Loja
+              <Button variant="cosmic" size="sm" className="rounded-xl h-12 sm:h-14 text-xs sm:text-sm" onClick={() => onNavigate?.("space-store")}>
+                <CosmicIcon type="galaxy" size={16} />
+                <span className="ml-1 sm:ml-2">Loja</span>
               </Button>
               
               {/* Parent Area Button */}
-              <Button variant="outline" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("parent-dashboard")}>
-                <CosmicIcon type="planet" size={20} />
-                Pais
+              <Button variant="outline" size="sm" className="rounded-xl h-12 sm:h-14 text-xs sm:text-sm" onClick={() => onNavigate?.("parent-dashboard")}>
+                <CosmicIcon type="planet" size={16} />
+                <span className="ml-1 sm:ml-2">Pais</span>
               </Button>
             </div>
           )}
         </div>
 
         {/* Week Navigation */}
-        <div className="flex items-center justify-center gap-2 mb-8">
-          <span className="text-sm text-muted-foreground mr-4">Semana: {dayInfo.week}</span>
-          {['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'].map((day, index) => (
-            <Badge 
-              key={day}
-              variant={day === dayInfo.weekDay ? "default" : "secondary"}
-              className={`px-3 py-1 ${day === dayInfo.weekDay ? 'bg-warning text-warning-foreground' : ''}`}
-            >
-              {day}
-            </Badge>
-          ))}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-2 mb-6 sm:mb-8">
+          <span className="text-xs sm:text-sm text-muted-foreground mb-2 sm:mb-0 sm:mr-4">Semana: {dayInfo.week}</span>
+          <div className="flex items-center gap-1 sm:gap-2">
+            {['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'].map((day, index) => (
+              <Badge 
+                key={day}
+                variant={day === dayInfo.weekDay ? "default" : "secondary"}
+                className={`px-2 py-1 text-xs ${day === dayInfo.weekDay ? 'bg-warning text-warning-foreground' : ''}`}
+              >
+                {day}
+              </Badge>
+            ))}
+          </div>
         </div>
 
         {/* Routines List */}
-        <div className="space-y-4 max-w-4xl mx-auto">
+        <div className="space-y-3 sm:space-y-4 max-w-4xl mx-auto">
           {routines.map((routine) => (
-            <Card key={routine.id} className={`p-6 bg-card/50 backdrop-blur-sm border transition-cosmic ${
+            <Card key={routine.id} className={`p-4 sm:p-6 bg-card/50 backdrop-blur-sm border transition-cosmic ${
               routine.completed ? 'border-success/40 bg-success/5' : 'border-accent/20 hover:border-accent/40'
             }`}>
-              <div className="flex items-center gap-4">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4">
                 {/* Time */}
-                <div className="text-center min-w-[80px]">
-                  <div className="text-lg font-bold text-primary">{routine.time}</div>
+                <div className="text-center sm:text-center min-w-[70px] sm:min-w-[80px] w-full sm:w-auto">
+                  <div className="text-base sm:text-lg font-bold text-primary">{routine.time}</div>
                   <div className="text-xs text-muted-foreground">
                     {routine.time} - {
                       new Date(`2000-01-01T${routine.time}:00`).getTime() + routine.duration * 60000 > new Date(`2000-01-01T${routine.time}:00`).getTime() 
@@ -186,34 +188,37 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
                 </div>
 
                 {/* Task Description */}
-                <div className="flex-1">
-                  <p className={`text-lg ${routine.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}>
+                <div className="flex-1 w-full">
+                  <p className={`text-sm sm:text-lg ${routine.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}>
                     {routine.description}
                   </p>
                 </div>
 
-                {/* Reward */}
-                <div className="flex items-center gap-2">
-                  <CosmicIcon type="coin" className="text-yellow-500" size={20} />
-                  <span className="font-bold text-yellow-500">{routine.rewardCoins}</span>
-                </div>
+                {/* Bottom section with reward and completion button */}
+                <div className="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-4">
+                  {/* Reward */}
+                  <div className="flex items-center gap-2">
+                    <CosmicIcon type="coin" className="text-yellow-500" size={16} />
+                    <span className="font-bold text-yellow-500 text-sm sm:text-base">{routine.rewardCoins}</span>
+                  </div>
 
-                {/* Completion Checkbox */}
-                <div className="flex items-center">
-                  {routine.completed ? (
-                    <div className="bg-success rounded-full p-2">
-                      <CosmicIcon type="star" className="text-success-foreground" size={20} />
-                    </div>
-                  ) : (
-                    <Button
-                      variant="stellar"
-                      size="sm"
-                      onClick={() => handleRoutineComplete(routine.id)}
-                      className="rounded-full px-6"
-                    >
-                      Completar
-                    </Button>
-                  )}
+                  {/* Completion Checkbox */}
+                  <div className="flex items-center">
+                    {routine.completed ? (
+                      <div className="bg-success rounded-full p-1.5 sm:p-2">
+                        <CosmicIcon type="star" className="text-success-foreground" size={16} />
+                      </div>
+                    ) : (
+                      <Button
+                        variant="stellar"
+                        size="sm"
+                        onClick={() => handleRoutineComplete(routine.id)}
+                        className="rounded-full px-4 sm:px-6 text-xs sm:text-sm"
+                      >
+                        Completar
+                      </Button>
+                    )}
+                  </div>
                 </div>
               </div>
             </Card>
