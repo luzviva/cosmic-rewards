@@ -128,6 +128,12 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
               <CosmicIcon type="galaxy" size={20} />
               Loja
             </Button>
+            
+            {/* Parent Area Button */}
+            <Button variant="outline" size="lg" className="rounded-xl" onClick={() => onNavigate?.("parent-dashboard")}>
+              <CosmicIcon type="planet" size={20} />
+              Pais
+            </Button>
           </div>
         </div>
 
