@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ChildRoutineView } from "./child/child-routine-view";
 import { SpaceStore } from "./store/space-store";
 import { ParentDashboard } from "./parent/parent-dashboard";
+import { CreateRoutineView } from "./parent/create-routine-view";
 import { CosmicBackground } from "./cosmic/cosmic-background";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
@@ -57,15 +58,7 @@ export const CosmicApp = () => {
       case "parent-dashboard":
         return <ParentDashboard onNavigate={handleNavigation} />;
       case "create-routine":
-        return <div className="min-h-screen bg-gradient-cosmic flex items-center justify-center">
-            <div className="text-center text-foreground">
-              <h2 className="text-2xl font-bold mb-4">Criar Rotina</h2>
-              <p className="mb-4">Esta funcionalidade será implementada em breve!</p>
-              <button onClick={() => setCurrentView("parent-dashboard")} className="bg-primary text-primary-foreground px-4 py-2 rounded">
-                Voltar
-              </button>
-            </div>
-          </div>;
+        return <CreateRoutineView onBack={() => handleNavigation("parent-dashboard")} />;
       case "edit-store":
         return <div className="min-h-screen bg-gradient-cosmic flex items-center justify-center">
             <div className="text-center text-foreground">
