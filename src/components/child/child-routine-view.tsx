@@ -96,6 +96,16 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
     }, 600);
   };
 
+  const handleRoutineUndo = (routineId: string) => {
+    setRoutines(prev => prev.map(routine => {
+      if (routine.id === routineId && routine.completed) {
+        setCoins(prev => prev - routine.rewardCoins);
+        return { ...routine, completed: false };
+      }
+      return routine;
+    }));
+  };
+
   const getDayInfo = () => {
     const today = new Date();
     const weekDays = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
@@ -236,23 +246,33 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
                      <span className="font-bold text-yellow-500 text-sm sm:text-base">{routine.rewardCoins}</span>
                    </div>
 
-                  {/* Completion Checkbox */}
-                  <div className="flex items-center">
-                    {routine.completed ? (
-                      <div className="bg-success rounded-full p-1.5 sm:p-2">
-                        <CosmicIcon type="star" className="text-success-foreground" size={16} />
-                      </div>
-                    ) : (
-                      <Button
-                        variant="stellar"
-                        size="sm"
-                        onClick={() => handleRoutineComplete(routine.id)}
-                        className="rounded-full px-4 sm:px-6 text-xs sm:text-sm"
-                      >
-                        Completar
-                      </Button>
-                    )}
-                  </div>
+                   {/* Completion Checkbox */}
+                   <div className="flex items-center gap-2">
+                     {routine.completed ? (
+                       <>
+                         <div className="bg-success rounded-full p-1.5 sm:p-2">
+                           <CosmicIcon type="star" className="text-success-foreground" size={16} />
+                         </div>
+                         <Button
+                           variant="outline"
+                           size="sm"
+                           onClick={() => handleRoutineUndo(routine.id)}
+                           className="rounded-full px-3 py-1 text-xs border-muted-foreground/30 hover:border-muted-foreground/50"
+                         >
+                           Voltar
+                         </Button>
+                       </>
+                     ) : (
+                       <Button
+                         variant="stellar"
+                         size="sm"
+                         onClick={() => handleRoutineComplete(routine.id)}
+                         className="rounded-full px-4 sm:px-6 text-xs sm:text-sm"
+                       >
+                         Completar
+                       </Button>
+                     )}
+                   </div>
                 </div>
               </div>
             </Card>
