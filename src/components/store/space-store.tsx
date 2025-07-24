@@ -4,7 +4,6 @@ import { CosmicIcon } from "@/components/cosmic/cosmic-icon";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-
 interface Product {
   id: string;
   name: string;
@@ -12,79 +11,67 @@ interface Product {
   image: string;
   type: 'toy' | 'treat' | 'experience';
 }
-
-const mockProducts: Product[] = [
-  {
-    id: "1",
-    name: "KitKat caramelo",
-    price: 6,
-    image: "🍫",
-    type: "treat"
-  },
-  {
-    id: "2", 
-    name: "Carrinho da Hotwheels",
-    price: 40,
-    image: "🏎️",
-    type: "toy"
-  },
-  {
-    id: "3",
-    name: "Foguete de Brinquedo",
-    price: 25,
-    image: "🚀",
-    type: "toy"
-  },
-  {
-    id: "4",
-    name: "Capacete de Astronauta", 
-    price: 35,
-    image: "👨‍🚀",
-    type: "toy"
-  },
-  {
-    id: "5",
-    name: "Modelo de Saturno",
-    price: 15,
-    image: "🪐",
-    type: "toy"
-  },
-  {
-    id: "6",
-    name: "Veículo Explorador",
-    price: 50,
-    image: "🛸",
-    type: "toy"
-  }
-];
-
+const mockProducts: Product[] = [{
+  id: "1",
+  name: "KitKat caramelo",
+  price: 6,
+  image: "🍫",
+  type: "treat"
+}, {
+  id: "2",
+  name: "Carrinho da Hotwheels",
+  price: 40,
+  image: "🏎️",
+  type: "toy"
+}, {
+  id: "3",
+  name: "Foguete de Brinquedo",
+  price: 25,
+  image: "🚀",
+  type: "toy"
+}, {
+  id: "4",
+  name: "Capacete de Astronauta",
+  price: 35,
+  image: "👨‍🚀",
+  type: "toy"
+}, {
+  id: "5",
+  name: "Modelo de Saturno",
+  price: 15,
+  image: "🪐",
+  type: "toy"
+}, {
+  id: "6",
+  name: "Veículo Explorador",
+  price: 50,
+  image: "🛸",
+  type: "toy"
+}];
 interface SpaceStoreProps {
   childCoins: number;
   onPurchase: (productId: string, cost: number) => void;
   onBack: () => void;
 }
-
-export const SpaceStore = ({ childCoins, onPurchase, onBack }: SpaceStoreProps) => {
+export const SpaceStore = ({
+  childCoins,
+  onPurchase,
+  onBack
+}: SpaceStoreProps) => {
   const [coins, setCoins] = useState(childCoins);
-
   const handlePurchase = (product: Product) => {
     if (coins >= product.price) {
       setCoins(prev => prev - product.price);
       onPurchase(product.id, product.price);
     }
   };
-
   const canAfford = (price: number) => coins >= price;
-
-  return (
-    <CosmicBackground>
+  return <CosmicBackground>
       <div className="container mx-auto p-4 space-y-6">
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-primary mb-1">
-              Loja Espacial Divertida
-            </h1>
+            <h1 className="text-3xl font-bold text-primary mb-1">Loja Espacial</h1>
             <p className="text-muted-foreground">
               Use suas moedas espaciais para comprar recompensas incríveis!
             </p>
@@ -107,11 +94,7 @@ export const SpaceStore = ({ childCoins, onPurchase, onBack }: SpaceStoreProps) 
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {mockProducts.map((product) => (
-            <Card 
-              key={product.id} 
-              className="bg-card/50 backdrop-blur-sm border-accent/20 hover:border-accent/40 transition-cosmic p-6 group"
-            >
+          {mockProducts.map(product => <Card key={product.id} className="bg-card/50 backdrop-blur-sm border-accent/20 hover:border-accent/40 transition-cosmic p-6 group">
               <div className="space-y-4">
                 {/* Product Image */}
                 <div className="text-center">
@@ -126,8 +109,7 @@ export const SpaceStore = ({ childCoins, onPurchase, onBack }: SpaceStoreProps) 
                   
                   {/* Type Badge */}
                   <Badge variant="secondary" className="capitalize">
-                    {product.type === 'toy' ? 'Brinquedo' : 
-                     product.type === 'treat' ? 'Guloseima' : 'Experiência'}
+                    {product.type === 'toy' ? 'Brinquedo' : product.type === 'treat' ? 'Guloseima' : 'Experiência'}
                   </Badge>
                 </div>
 
@@ -138,24 +120,17 @@ export const SpaceStore = ({ childCoins, onPurchase, onBack }: SpaceStoreProps) 
                     <span className="text-2xl font-bold text-yellow-500">{product.price}</span>
                   </div>
                   
-                  <Button
-                    variant={canAfford(product.price) ? "coins" : "secondary"}
-                    className="w-full rounded-xl"
-                    disabled={!canAfford(product.price)}
-                    onClick={() => handlePurchase(product)}
-                  >
+                  <Button variant={canAfford(product.price) ? "coins" : "secondary"} className="w-full rounded-xl" disabled={!canAfford(product.price)} onClick={() => handlePurchase(product)}>
                     <CosmicIcon type="star" size={16} />
                     {canAfford(product.price) ? "Comprar" : "Moedas Insuficientes"}
                   </Button>
                 </div>
               </div>
-            </Card>
-          ))}
+            </Card>)}
         </div>
 
         {/* Achievement Message */}
-        {coins < 10 && (
-          <Card className="bg-secondary/50 backdrop-blur-sm border-warning/30 p-6 max-w-2xl mx-auto text-center">
+        {coins < 10 && <Card className="bg-secondary/50 backdrop-blur-sm border-warning/30 p-6 max-w-2xl mx-auto text-center">
             <CosmicIcon type="rocket" className="text-warning mx-auto mb-4" size={32} />
             <h3 className="text-lg font-bold text-warning mb-2">
               Continue completando suas rotinas!
@@ -163,9 +138,7 @@ export const SpaceStore = ({ childCoins, onPurchase, onBack }: SpaceStoreProps) 
             <p className="text-muted-foreground">
               Complete mais tarefas para ganhar moedas espaciais e comprar recompensas incríveis!
             </p>
-          </Card>
-        )}
+          </Card>}
       </div>
-    </CosmicBackground>
-  );
+    </CosmicBackground>;
 };
