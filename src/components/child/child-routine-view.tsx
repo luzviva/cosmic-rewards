@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Coins } from "lucide-react";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CosmicIcon } from "@/components/cosmic/cosmic-icon";
 import { Button } from "@/components/ui/button";
@@ -132,8 +133,8 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
               </div>
               
               {/* Coins */}
-              <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-cosmic h-12 sm:h-14">
-                <CosmicIcon type="coin" className="text-orange-600" size={18} />
+              <div className="flex items-center justify-center gap-2 bg-gradient-coins rounded-2xl px-3 py-2 sm:px-4 sm:py-3 shadow-cosmic h-12 sm:h-14 min-w-[80px] sm:min-w-[100px]">
+                <Coins className="text-orange-600" size={18} />
                 <span className="text-base sm:text-lg font-bold text-black">{coins}</span>
               </div>
               
