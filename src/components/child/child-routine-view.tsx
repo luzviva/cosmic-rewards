@@ -62,6 +62,7 @@ interface ChildRoutineViewProps {
 export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => {
   const [routines, setRoutines] = useState(mockRoutines);
   const [coins, setCoins] = useState(mockChild.coins);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleRoutineComplete = (routineId: string) => {
     setRoutines(prev => prev.map(routine => {
@@ -104,37 +105,51 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
             </p>
           </div>
           
-          <div className="flex items-center gap-4">
-            {/* Child Profile */}
-            <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm rounded-2xl p-3 border border-accent/20 h-14">
-              <Avatar className="h-8 w-8 border-2 border-primary">
-                <AvatarFallback className="text-lg bg-gradient-stellar">
-                  {mockChild.avatar}
-                </AvatarFallback>
-              </Avatar>
-              <div className="text-right">
-                <div className="text-sm font-semibold text-foreground">{mockChild.name}</div>
+          {/* Menu Button */}
+          <Button 
+            variant="outline" 
+            size="lg" 
+            className="rounded-xl h-14"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <CosmicIcon type="meteor" size={20} />
+            Menu
+          </Button>
+          
+          {/* Collapsible Menu */}
+          {isMenuOpen && (
+            <div className="flex items-center gap-4">
+              {/* Child Profile */}
+              <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm rounded-2xl p-3 border border-accent/20 h-14">
+                <Avatar className="h-8 w-8 border-2 border-primary">
+                  <AvatarFallback className="text-lg bg-gradient-stellar">
+                    {mockChild.avatar}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="text-right">
+                  <div className="text-sm font-semibold text-foreground">{mockChild.name}</div>
+                </div>
               </div>
+              
+              {/* Coins */}
+              <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-4 py-3 shadow-cosmic h-14">
+                <CosmicIcon type="coin" className="text-orange-600" size={20} />
+                <span className="text-lg font-bold text-black">{coins}</span>
+              </div>
+              
+              {/* Store Button */}
+              <Button variant="cosmic" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("space-store")}>
+                <CosmicIcon type="galaxy" size={20} />
+                Loja
+              </Button>
+              
+              {/* Parent Area Button */}
+              <Button variant="outline" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("parent-dashboard")}>
+                <CosmicIcon type="planet" size={20} />
+                Pais
+              </Button>
             </div>
-            
-            {/* Coins */}
-            <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-4 py-3 shadow-cosmic h-14">
-              <CosmicIcon type="coin" className="text-orange-600" size={20} />
-              <span className="text-lg font-bold text-black">{coins}</span>
-            </div>
-            
-            {/* Store Button */}
-            <Button variant="cosmic" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("space-store")}>
-              <CosmicIcon type="galaxy" size={20} />
-              Loja
-            </Button>
-            
-            {/* Parent Area Button */}
-            <Button variant="outline" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("parent-dashboard")}>
-              <CosmicIcon type="planet" size={20} />
-              Pais
-            </Button>
-          </div>
+          )}
         </div>
 
         {/* Week Navigation */}
