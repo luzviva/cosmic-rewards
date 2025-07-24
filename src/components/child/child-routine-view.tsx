@@ -106,31 +106,31 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
           
           <div className="flex items-center gap-4">
             {/* Child Profile */}
-            <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm rounded-2xl p-3 border border-accent/20">
-              <Avatar className="h-12 w-12 border-2 border-primary">
-                <AvatarFallback className="text-2xl bg-gradient-stellar">
+            <div className="flex items-center gap-3 bg-card/50 backdrop-blur-sm rounded-2xl p-3 border border-accent/20 h-14">
+              <Avatar className="h-8 w-8 border-2 border-primary">
+                <AvatarFallback className="text-lg bg-gradient-stellar">
                   {mockChild.avatar}
                 </AvatarFallback>
               </Avatar>
               <div className="text-right">
-                <div className="text-lg font-semibold text-foreground">{mockChild.name}</div>
+                <div className="text-sm font-semibold text-foreground">{mockChild.name}</div>
               </div>
             </div>
             
             {/* Coins */}
-            <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-4 py-3 shadow-cosmic">
-              <CosmicIcon type="coin" className="text-orange-600" size={24} />
+            <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-4 py-3 shadow-cosmic h-14">
+              <CosmicIcon type="coin" className="text-orange-600" size={20} />
               <span className="text-lg font-bold text-black">{coins}</span>
             </div>
             
             {/* Store Button */}
-            <Button variant="cosmic" size="lg" className="rounded-xl" onClick={() => onNavigate?.("space-store")}>
+            <Button variant="cosmic" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("space-store")}>
               <CosmicIcon type="galaxy" size={20} />
               Loja
             </Button>
             
             {/* Parent Area Button */}
-            <Button variant="outline" size="lg" className="rounded-xl" onClick={() => onNavigate?.("parent-dashboard")}>
+            <Button variant="outline" size="lg" className="rounded-xl h-14" onClick={() => onNavigate?.("parent-dashboard")}>
               <CosmicIcon type="planet" size={20} />
               Pais
             </Button>
