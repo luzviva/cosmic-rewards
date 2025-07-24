@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Coins, ShoppingCart, UserCircle } from "lucide-react";
+import { getWeek } from "date-fns";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CosmicIcon } from "@/components/cosmic/cosmic-icon";
 import { Button } from "@/components/ui/button";
@@ -86,7 +87,7 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
       month: months[today.getMonth()],
       year: today.getFullYear(),
       weekDay: weekDays[today.getDay()],
-      week: Math.ceil(today.getDate() / 7)
+      week: getWeek(today)
     };
   };
 
