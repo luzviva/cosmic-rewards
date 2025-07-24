@@ -77,7 +77,7 @@ export const SpaceStore = ({
             </p>
           </div>
           
-          <div className="flex items-center gap-4">
+          <div className="flex flex-col items-end gap-3">
             {/* Current Coins */}
             <div className="flex items-center gap-2 bg-gradient-coins rounded-2xl px-6 py-3 shadow-cosmic">
               <CosmicIcon type="coin" className="text-orange-600" size={24} />
