@@ -247,9 +247,7 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
                         variant="stellar"
                         size="sm"
                         onClick={() => handleRoutineComplete(routine.id)}
-                        className={`rounded-full px-4 sm:px-6 text-xs sm:text-sm ${
-                          currentWeekDay === new Date().getDay() && isTimeNear(routine.time) ? 'animate-pulse' : ''
-                        }`}
+                        className="rounded-full px-4 sm:px-6 text-xs sm:text-sm"
                       >
                         Completar
                       </Button>
