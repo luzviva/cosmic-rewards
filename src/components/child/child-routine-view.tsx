@@ -110,17 +110,6 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
     setSelectedDay(dayIndex);
   };
 
-  const isTimeNear = (routineTime: string) => {
-    const now = new Date();
-    const currentTime = now.getHours() * 60 + now.getMinutes(); // minutos desde meia-noite
-    
-    const [hours, minutes] = routineTime.split(':').map(Number);
-    const routineMinutes = hours * 60 + minutes;
-    
-    // Considera "próximo" se estiver dentro de 15 minutos antes ou depois
-    const timeDifference = Math.abs(currentTime - routineMinutes);
-    return timeDifference <= 15;
-  };
 
   return (
     <CosmicBackground>
