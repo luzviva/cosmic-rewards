@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Coins, ShoppingCart, UserCircle } from "lucide-react";
+import { Coins, ShoppingCart, UserCircle, Undo2 } from "lucide-react";
 import { getWeek } from "date-fns";
 import { CosmicBackground } from "@/components/cosmic/cosmic-background";
 import { CosmicIcon } from "@/components/cosmic/cosmic-icon";
@@ -257,9 +257,9 @@ export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => 
                            variant="outline"
                            size="sm"
                            onClick={() => handleRoutineUndo(routine.id)}
-                           className="rounded-full px-3 py-1 text-xs border-muted-foreground/30 hover:border-muted-foreground/50"
+                           className="rounded-full p-2 text-xs border-muted-foreground/30 hover:border-muted-foreground/50"
                          >
-                           Voltar
+                           <Undo2 size={14} />
                          </Button>
                        </>
                      ) : (
