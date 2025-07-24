@@ -16,7 +16,7 @@ export const CosmicApp = () => {
   const renderCurrentView = () => {
     switch (currentView) {
       case "child-routine":
-        return <ChildRoutineView />;
+        return <ChildRoutineView onNavigate={handleNavigation} />;
       case "space-store":
         return <SpaceStore childCoins={childCoins} onPurchase={handlePurchase} onBack={() => setCurrentView("child-routine")} />;
       case "parent-dashboard":

@@ -55,7 +55,11 @@ const mockRoutines: Routine[] = [
   }
 ];
 
-export const ChildRoutineView = () => {
+interface ChildRoutineViewProps {
+  onNavigate?: (view: string) => void;
+}
+
+export const ChildRoutineView = ({ onNavigate }: ChildRoutineViewProps = {}) => {
   const [routines, setRoutines] = useState(mockRoutines);
   const [coins, setCoins] = useState(mockChild.coins);
 
@@ -120,7 +124,7 @@ export const ChildRoutineView = () => {
             </div>
             
             {/* Store Button */}
-            <Button variant="cosmic" size="lg" className="rounded-xl">
+            <Button variant="cosmic" size="lg" className="rounded-xl" onClick={() => onNavigate?.("space-store")}>
               <CosmicIcon type="galaxy" size={20} />
               Loja
             </Button>
